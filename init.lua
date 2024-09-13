@@ -867,6 +867,12 @@ local plugins = {
 				{
 					ft = "copilot-chat",
 					size = { width = 0.2 }
+				},
+				{
+					ft = "fugitive"
+				},
+				{
+					ft = "gitcommit"
 				}
 			},
 			top = { }
