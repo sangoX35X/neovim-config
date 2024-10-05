@@ -68,7 +68,7 @@ opt.listchars = {
 --	eol = "↵",
 	tab = "│  ",
 	space = "･",
-	multispace = " |> ",
+	multispace = "│ ",
 	trail = "␣",
 	extends = "➙"
 }
