@@ -97,6 +97,8 @@ local function char_at_cursor(horizontal_relative_position, vertical_relative_po
 end
 
 --#keymaps
+vim.g.mapleader = " "
+
 key.set({'i', 'c'}, "<C-l>", "<Esc>")
 key.set('t', "<C-l>", "<C-\\><C-n>")
 key.set({'n', 'v'}, "L", "$")
@@ -124,7 +126,7 @@ key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
 -- 	end
 -- 	cmd.redraw()
 -- end
--- key.set({'n', 'v'}, "<Space>s", toggle_hlsearch)
+-- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
 
 --#plugins
 --##plugins-lazy.nvim
@@ -220,7 +222,7 @@ local plugins = {
 		config = function ()
 			vim.keymap.set(
 				"n",
-				"<Space>ls<Space>",
+				"<Leader>ls<Space>",
 				":Lspsaga "
 			)
 		end
@@ -281,7 +283,7 @@ local plugins = {
 			require("mini.files").setup()
 			vim.keymap.set(
 				"n",
-				"<Space>mf",
+				"<Leader>me",
 				function ()
 					MiniFiles.open()
 				end
@@ -302,7 +304,7 @@ local plugins = {
 			require("mini.jump2d").setup()
 			vim.keymap.set(
 				"n",
-				"<Space>mf",
+				"<Leader>mf",
 				function ()
 					MiniJump2d.start()
 				end
@@ -793,7 +795,7 @@ local plugins = {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
-			open_mapping = "<Space>tt",
+			open_mapping = "<Leader>tt",
 			insert_mappings = false
 		}
 	},
@@ -802,12 +804,12 @@ local plugins = {
 		config = function()
 			vim.keymap.set(
 				{'v', 'n'},
-				"<Space>tj",
+				"<Leader>tj",
 				"<Cmd>Translate ja<CR>"
 			)
 			vim.keymap.set(
 				{'v', 'n'},
-				"<Space>te",
+				"<Leader>te",
 				"<Cmd>Translate en<CR>"
 			)
 		end
