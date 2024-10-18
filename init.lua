@@ -214,21 +214,33 @@ local plugins = {
 	},
 	{
 		"nvimdev/lspsaga.nvim",
+		lazy = false,
 		opts = {
 			ui = {
 				code_action = ""
 			}
 		},
-		config = function ()
-			vim.keymap.set(
-				"n",
-				"<Leader>ls<Space>",
-				":Lspsaga "
-			)
-		end
+		keys = {
+			{"<Leader>ls<Space>", ":Lspsaga "},
+			{"<Leader>lsa", "<Cmd>Lspsaga code_action<CR>"},
+			{"<Leader>lsdb", "<Cmd>Lspsaga show_buf_diagnostics<CR>"},
+			{"<Leader>lsdc", "<Cmd>Lspsaga show_cursor_diagnostics<CR>"},
+			{"<Leader>lsdl", "<Cmd>Lspsaga show_line_diagnostics<CR>"},
+			{"<Leader>lsdw", "<Cmd>Lspsaga show_workspace_diagnostics<CR>"},
+			{"<Leader>lsf", "<Cmd>Lspsaga finder<CR>"},
+			{"<Leader>lsk", "<Cmd>Lspsaga hover_doc<CR>"},
+			{"<Leader>lso", "<Cmd>Lspsaga outline<CR>"},
+			{"<Leader>lsr", "<Cmd>Lspsaga rename<CR>"},
+			{"<Leader>lssb", "<Cmd>Lspsaga subtypes<CR>"},
+			{"<Leader>lssp", "<Cmd>Lspsaga supertypes<CR>"},
+			{"<Leader>lst", "<Cmd>Lspsaga term_toggle<CR>"},
+			{"<Leader>lsw", "<Cmd>Lspsaga winbar_toggle<CR>"},
+		},
+		config = true
 	},
 	{
-		"dense-analysis/ale"
+		"dense-analysis/ale",
+		cond = false
 	},
 --##plugins-treesitter
 	{
@@ -241,7 +253,23 @@ local plugins = {
 --##plugins-git
 	{
 		"tpope/vim-fugitive",
-		cmd = "Git"
+		cmd = "Git",
+		config = function ()
+			vim.api.nvim_create_autocmd(
+				"FileType",
+				{
+					pattern = {
+						"gitcommit",
+						"fugitive"
+					},
+					callback = function ()
+						vim.opt_local.number = false
+						vim.opt_local.relativenumber = false
+						vim.opt_local.signcolumn = "no"
+					end
+				}
+			)
+		end
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -273,7 +301,7 @@ local plugins = {
 			}
 			require("mini.bracketed").setup()
 			require("mini.colors").setup()
-			vim.cmd.Colorscheme("minischeme")
+			vim.cmd.Colorscheme("kanagawa-wave")
 			require("mini.comment").setup {
 				options = {
 					ignore_blank_line = true
@@ -417,7 +445,7 @@ local plugins = {
 			},
 			"Shougo/ddc-source-line",
 			"Shougo/ddc-source-input",
-			"statiolake/ddc-ale",
+			-- "statiolake/ddc-ale",
 			-- "LumaKernel/ddc-tabnine",
 			"Shougo/neco-vim",
 			--filers
@@ -433,10 +461,10 @@ local plugins = {
 				sources = {
 					-- "tabnine",
 					"lsp",
-					"ale",
-					"around",
+					-- "ale",
 					"file",
 					"buffer",
+					"around",
 					"copilot"
 				},
 				sourceOptions = {
@@ -843,7 +871,10 @@ local plugins = {
 					size = 30
 				},
 				right = {
-					size = 78
+					size = 0.2
+				},
+				bottom = {
+					size = 0.25
 				}
 			},
 			left = {
@@ -857,7 +888,6 @@ local plugins = {
 			bottom = {
 				{
 					ft = "toggleterm",
-					size = { height = 0.25 },
 					filter = function ()
 						return vim.b.toggleterm_use == nil
 					end
@@ -866,23 +896,28 @@ local plugins = {
 			right = {
 				{
 					ft = "help",
+					size = { width = 78 }
 				},
 				{
 					ft = "copilot-chat",
-					size = { width = 0.2 }
 				},
 				{
 					ft = "fugitive"
 				},
 				{
-					ft = "gitcommit"
+					ft = "gitcommit",
+					size = { width = 40 }
+				},
+				{
+					ft = "sagaoutline"
 				}
 			},
 			top = { }
 		}
 	},
 	{
-		"ap/vim-css-color",
+		"rebelot/kanagawa.nvim",
+		config = true
 	},
 --##plugins-nvimTree
 	{
@@ -898,9 +933,7 @@ local plugins = {
 	{
 		"sheerun/vim-polyglot",
 		init = function()
-			vim.g.polyglot_disabled = {
-				"autoindent"
-			}
+			vim.g.polyglot_disabled = { }
 		end
 	},
 	{
@@ -938,6 +971,9 @@ local plugins = {
 	},
 	{
 		"lervag/vimtex",
+		init = function()
+			vim.g.vimtex_indent_enabled = 0
+		end,
 		ft = {
 			"tex",
 			"latex"
