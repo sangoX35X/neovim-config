@@ -129,16 +129,27 @@ key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
 -- end
 -- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
 --#autocmds
+local changeMultispace = function ()
+	local tabstop = vim.opt.tabstop:get()
+	local listchars = vim.opt.listchars:get()
+	listchars.multispace = "│" .. string.rep(" ", tabstop - 1)
+	vim.opt_local.listchars = listchars
+end
 vim.api.nvim_create_autocmd(
 	"OptionSet",
 	{
 		pattern = "tabstop",
-		callback = function ()
-			local tabstop = vim.opt.tabstop:get()
-			local listchars = vim.opt.listchars:get()
-			listchars.multispace = "│" .. string.rep(" ", tabstop - 1)
-			vim.opt_local.listchars = listchars
-		end
+		callback = changeMultispace
+	}
+)
+vim.api.nvim_create_autocmd(
+	{
+		"BufNewFile",
+		"BufRead"
+	},
+	{
+		pattern = "*",
+		callback = changeMultispace
 	}
 )
 
