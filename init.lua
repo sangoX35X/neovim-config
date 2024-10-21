@@ -8,6 +8,7 @@
 	-- others
 -- functions
 -- keymaps
+-- autocmds
 -- plugins
 	-- lazy.nvim
 	-- libraries
@@ -127,6 +128,19 @@ key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
 -- 	cmd.redraw()
 -- end
 -- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
+--#autocmds
+vim.api.nvim_create_autocmd(
+	"OptionSet",
+	{
+		pattern = "tabstop",
+		callback = function ()
+			local tabstop = vim.opt.tabstop:get()
+			local listchars = vim.opt.listchars:get()
+			listchars.multispace = "│" .. string.rep(" ", tabstop - 1)
+			vim.opt_local.listchars = listchars
+		end
+	}
+)
 
 --#plugins
 --##plugins-lazy.nvim
@@ -254,6 +268,9 @@ local plugins = {
 	{
 		"tpope/vim-fugitive",
 		cmd = "Git",
+		keys = {
+			{"<Leader>g<Space>", ":Git "}
+		},
 		config = function ()
 			vim.api.nvim_create_autocmd(
 				"FileType",
