@@ -170,7 +170,18 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 --##plugins-libraries
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{
+		"nvim-tree/nvim-web-devicons",
+		lazy = true,
+		config = function()
+			vim.api.nvim_create_autocmd(
+				"Colorscheme",
+				{
+					callback = require"nvim-web-devicons".refresh
+				}
+			)
+		end
+	},
 	{ "neovim/nvim-lspconfig", lazy = true },
 --##plugins-ai
 	{
