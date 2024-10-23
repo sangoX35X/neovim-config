@@ -697,7 +697,6 @@ local plugins = {
 			"uga-rosa/ddu-source-lsp",
 			--filters
 			"yuki-yano/ddu-filter-fzf",
-			"Shougo/ddu-filter-sorter_alpha",
 			--kinds
 			"Shougo/ddu-kind-file",
 			"Shougo/ddu-kind-word",
@@ -705,88 +704,52 @@ local plugins = {
 			"ryota2357/ddu-column-icon_filename",
 			"Shougo/ddu-commands.vim"
 		},
-		-- event = "VimEnter",
-		config = function ()
+		config = function()
+			local function set_ff_keymaps(args)
+				vim.keymap.set("n", "q", function() vim.fn["ddu#ui#do_action"]("quit") end, { buffer = args.buf })
+				vim.keymap.set("n", "<C-j>", function() vim.fn["ddu#ui#do_action"]("itemAction") end, { buffer = args.buf })
+				vim.keymap.set("n", "o", function() vim.fn["ddu#ui#do_action"]("expandItem", { mode = "toggle" }) end, { buffer = args.buf })
+				vim.keymap.set("n", "c", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, { buffer = args.buf })
+				vim.keymap.set("n", "C", function() vim.fn["ddu#ui#do_action"]("toggleAllItems") end, { buffer = args.buf })
+				vim.keymap.set("n", "a", function() vim.fn["ddu#ui#do_action"]("toggleAutoAction") end, { buffer = args.buf })
+				vim.keymap.set("n", "i", function() vim.fn["ddu#ui#do_action"]("openFilterWindow") end, { buffer = args.buf })
+			end
+			vim.api.nvim_create_autocmd(
+				"FileType",
+				{
+					pattern = "ddu-ff",
+					callback = set_ff_keymaps
+				}
+			)
+			local function set_filer_keymaps(args)
+				vim.keymap.set(
+					"n",
+					"o",
+					function ()
+						local item = vim.fn["ddu#ui#get_item"]()
+						if item.isTree then
+							vim.fn["ddu#ui#do_action"]("expandItem", { mode = "toggle" })
+						elseif item.action.isDirectory then
+						else
+							vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
+						end
+					end,
+					{ buffer = 0 }
+				)
+				vim.keymap.set("n", "K", function() vim.fn["ddu#ui#do_action"]("preview") end, { buffer = args.buf })
+				vim.keymap.set("n", "j", "gj<Cmd>call ddu#ui#do_action('preview')<CR>", { buffer = args.buf })
+				vim.keymap.set("n", "k", "gk<Cmd>call ddu#ui#do_action('preview')<CR>", { buffer = args.buf })
+				vim.keymap.set("n", "q", function() vim.fn["ddu#ui#do_action"]("quit") end, { buffer = args.buf })
+				vim.keymap.set("n", "y", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "copy"} ) end, { buffer = args.buf })
+				vim.keymap.set("n", "p", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "paste"} ) end, { buffer = args.buf })
+				vim.keymap.set("n", "r", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "rename"} ) end, { buffer = args.buf })
+				vim.keymap.set("n", "ad", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newDirectory"} ) end, { buffer = args.buf })
+				vim.keymap.set("n", "af", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "newFile"} ) end, { buffer = args.buf })
+				vim.keymap.set("n", "Y", function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "yank"} ) end, { buffer = args.buf })
+			end
 			vim.api.nvim_create_autocmd({"FileType"}, {
 				pattern = "ddu-filer",
-				callback = function (args)
-					vim.keymap.set(
-						"n",
-						"o",
-						function ()
-							if vim.fn["ddu#ui#get_items"]().isTree then --FIXME: .isTree does not work
-								vim.fn["ddu#ui#do_action"]("expandItem", { mode = "toggle" })
-							else
-								vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
-							end
-						end,
-						{ buffer = 0 }
-					)
-					vim.keymap.set(
-						"n",
-						"K",
-						function ()
-							vim.fn["ddu#ui#do_action"]("preview")
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"q",
-						function ()
-							vim.fn["ddu#ui#do_action"]("quit")
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"y",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "copy"} )
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"p",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "paste"} )
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"r",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "rename"} )
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"ad",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "newDirectory"} )
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"af",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "newFile"} )
-						end,
-						{ buffer = args.buf }
-					)
-					vim.keymap.set(
-						"n",
-						"Y",
-						function ()
-							vim.fn["ddu#ui#do_action"]("itemAction", { name = "yank"} )
-						end,
-						{ buffer = args.buf }
-					)
-				end
+				callback = set_filer_keymaps
 			})
 			vim.fn["ddu#custom#patch_global"] {
 				ui = "ff",
@@ -796,22 +759,21 @@ local plugins = {
 							name = "preview",
 							delay = 0
 						},
-						displaySourceName = "short",
+						displaySourceName = "full",
 						displayTree = true,
-						floatingBorder = "rounded",
-						floatingTitle = "DDU-FuzzyFinder",
-						floatingTitlePos = "center",
+						floatingBorder = "single",
 						previewFloating = true,
-						previewFloatingBorder = "shadow",
-						prompt = "ff> ",
+						previewFloatingBorder = "double",
+						prompt = " >",
 						split = "floating",
 						statusline = false,
 					},
 					filer = {
 						sort = "filename",
-						split = "vertical",
+						split = "floating",
+						floatingBorder = "single",
 						previewFloating = true,
-						previewFloatingBorder = "shadow"
+						previewFloatingBorder = "double"
 					}
 				},
 				sourceOptions = {
@@ -828,11 +790,23 @@ local plugins = {
 						columns = {
 							"icon_filename"
 						}
+					},
+					file_rec = {
+						columns = {
+							"icon_filename"
+						}
+					},
+					rg = {
+						matchers = {},
+						volatile = true,
 					}
 				},
 				filterParams = {
 					matcher_fzf = {
 						highlightMatched = "Search"
+					},
+					rg = {
+						args = { "--column", "--no-heading", "--color never", "--smart-case", "--json" },
 					}
 				},
 				kindOptions = {
@@ -841,6 +815,12 @@ local plugins = {
 					},
 					word = {
 						defaultAction = "append"
+					},
+					lsp = {
+						defaultAction = "open"
+					},
+					lsp_codeAction = {
+						defaultAction = "apply"
 					}
 				},
 				actionOptions = {
@@ -853,9 +833,21 @@ local plugins = {
 				ui = "filer",
 				sources = { "file" }
 			})
+			vim.fn["ddu#custom#patch_local"]("f", {
+				ui = "ff",
+				sources = { "file", "line", "register", "rg", "buffer" }
+			})
 			vim.fn["ddu#custom#patch_local"]("ff", {
 				ui = "ff",
-				sources = { "file", "line", "register", "rg", "buffer", "lsp" }
+				sources = { "file" }
+			})
+			vim.fn["ddu#custom#patch_local"]("ffr", {
+				ui = "ff",
+				sources = { "file_rec" }
+			})
+			vim.fn["ddu#custom#patch_local"]("rg", {
+				ui = "ff",
+				sources = { "rg" }
 			})
 		end
 	},
@@ -951,9 +943,6 @@ local plugins = {
 				}
 			},
 			left = {
-				{
-					ft = "ddu-filer"
-				},
 				{
 					ft = "NvimTree"
 				}
