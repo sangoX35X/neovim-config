@@ -945,7 +945,7 @@ local plugins = {
 				},
 				{
 					ft = "gitcommit",
-					size = { width = 40 }
+					size = { width = 70 }
 				},
 				{
 					ft = "sagaoutline"
