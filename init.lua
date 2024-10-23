@@ -291,7 +291,9 @@ local plugins = {
 		"tpope/vim-fugitive",
 		cmd = "Git",
 		keys = {
-			{"<Leader>g<Space>", ":Git "}
+			{"<Leader>g<Space>", ":Git "},
+			{"<Leader>gc", "<Cmd>Git commit<CR>"},
+			{"<Leader>gps", "<Cmd>Git push<CR>"}
 		},
 		config = function ()
 			vim.api.nvim_create_autocmd(
@@ -312,7 +314,39 @@ local plugins = {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		opts = { }
+		opts = {
+			on_attach = function (bufnr)
+				local gitsigns = require"gitsigns"
+				vim.g.mapleader = " "
+				vim.keymap.set("n", "<Leader>ghs", gitsigns.stage_hunk, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>ghr", gitsigns.reset_hunk, { buffer = bufnr })
+				vim.keymap.set(
+					"v",
+					"<Leader>ghs",
+					function() gitsigns.stage_hunk { vim.fn.line".", vim.fn.line"v" } end,
+					{ buffer = bufnr }
+				)
+				vim.keymap.set(
+					"v",
+					"<Leader>ghr",
+					function() gitsigns.reset_hunk { vim.fn.line".", vim.fn.line"v" } end,
+					{ buffer = bufnr }
+				)
+				vim.keymap.set("n", "<Leader>gss", gitsigns.stage_buffer, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>ghS", gitsigns.undo_stage_hunk, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>grr", gitsigns.reset_buffer, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>ghp", gitsigns.preview_hunk, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>gb", gitsigns.toggle_current_line_blame, { buffer = bufnr })
+				vim.keymap.set("n", "<Leader>gdf", gitsigns.diffthis, { buffer = bufnr })
+				vim.keymap.set(
+					"n",
+					"<Leader>gD",
+					function() gitsigns.diffthis {"~"} end,
+					{ buffer = bufnr }
+				)
+				vim.keymap.set("n", "<Leader>gdl", gitsigns.toggle_deleted, { buffer = bufnr })
+			end
+		}
 	},
 --##plugins-mini
 	{
