@@ -912,18 +912,10 @@ local plugins = {
 	},
 	{
 		"uga-rosa/translate.nvim",
-		config = function()
-			vim.keymap.set(
-				{'v', 'n'},
-				"<Leader>tj",
-				"<Cmd>Translate ja<CR>"
-			)
-			vim.keymap.set(
-				{'v', 'n'},
-				"<Leader>te",
-				"<Cmd>Translate en<CR>"
-			)
-		end
+		keys = {
+			{"<Leader>tj", "<Cmd>Translate ja<CR>", mode = "v"},
+			{"<Leader>te", "<Cmd>Translate en<CR>", mode = "v"}
+		}
 	},
 	{
 		"guns/xterm-color-table.vim",
