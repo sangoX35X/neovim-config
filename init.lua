@@ -417,6 +417,7 @@ local plugins = {
 				end
 			)
 			require("mini.move").setup()
+			require("mini.notify").setup()
 			require("mini.pairs").setup()
 			require("mini.splitjoin").setup()
 			require("mini.starter").setup()
