@@ -119,6 +119,7 @@ key.set('n', "cH", "c0")
 -- key.set('n', "<C-l>", "<C-w>l")
 key.set('n', "<C-S-k>", "<Cmd>tabNext<CR>")
 key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
+--#autocmds
 -- local function toggle_hlsearch ()
 -- 	if opt.hlsearch:get() then
 -- 		opt.hlsearch = false
@@ -128,7 +129,6 @@ key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
 -- 	cmd.redraw()
 -- end
 -- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
---#autocmds
 local changeMultispace = function ()
 	if vim.opt_local.expandtab:get() then
 		local tabsize = vim.optvim.opt_local.tabstop:get()
