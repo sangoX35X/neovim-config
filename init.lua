@@ -805,12 +805,17 @@ local plugins = {
 						volatile = true,
 					}
 				},
+				sourceParams = {
+					rg = {
+						args = {
+							"--smart-case",
+							"--json",
+						}
+					}
+				},
 				filterParams = {
 					matcher_fzf = {
 						highlightMatched = "Search"
-					},
-					rg = {
-						args = { "--column", "--no-heading", "--color never", "--smart-case", "--json" },
 					}
 				},
 				kindOptions = {
