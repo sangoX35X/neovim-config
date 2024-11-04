@@ -180,6 +180,7 @@ local plugins = {
 --##plugins-ai
 	{
 		"github/copilot.vim",
+		event = "VeryLazy",
 		config = function ()
 			vim.g.copilot_no_maps = true
 			key.set('i', "<C-c><C-c>", "copilot#Accept('<CR>')", { expr = true, silent = true, replace_keycodes = false })
@@ -189,6 +190,7 @@ local plugins = {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		event = "VeryLazy",
 		branch = "canary",
 		build = "make tiktoken",
 		opts = {
@@ -308,6 +310,7 @@ local plugins = {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		event = "VeryLazy",
 		opts = {
 			on_attach = function (bufnr)
 				local gitsigns = require"gitsigns"
@@ -368,7 +371,6 @@ local plugins = {
 			}
 			require("mini.bracketed").setup()
 			require("mini.colors").setup()
-			vim.cmd.Colorscheme("kanagawa-wave")
 			require("mini.comment").setup {
 				options = {
 					ignore_blank_line = true
@@ -422,6 +424,7 @@ local plugins = {
 --##plugins-ddc
 	{
 		"Shougo/ddc.vim",
+		event = "VeryLazy",
 		dependencies = {
 			"vim-denops/denops.vim",
 			{
@@ -544,8 +547,6 @@ local plugins = {
 							"sorter_itemsize"
 						},
 						converters = {
-							"converter_remove_overlap",
-							"converter_fuzzy"
 						}
 					},
 					tabnine = {
@@ -602,8 +603,9 @@ local plugins = {
 					['='] = {'input'}
 				},
 				postFilters = {
+					"converter_fuzzy",
 					"converter_remove_overlap",
-					"sorter_rank",
+					-- "sorter_rank",
 					"sorter_fuzzy"
 				},
 				filterParams = {
@@ -895,6 +897,7 @@ local plugins = {
 --##plugins-utils
 	{
 		"akinsho/toggleterm.nvim",
+		event = "VeryLazy",
 		version = "*",
 		opts = {
 			open_mapping = "<Leader>tt",
@@ -927,6 +930,7 @@ local plugins = {
 	},
 	{
 		"folke/edgy.nvim",
+		event = "VeryLazy",
 		init = function ()
 			vim.opt.laststatus = 3
 			vim.opt.splitkeep = "screen"
@@ -1018,6 +1022,7 @@ local plugins = {
 --##plugins-language
 	{
 		"sheerun/vim-polyglot",
+		event = "VeryLazy",
 		init = function()
 			vim.g.polyglot_disabled = { }
 		end
@@ -1085,3 +1090,6 @@ require("lazy").setup(plugins, {
 		}
 	}
 })
+
+--#colorsheme
+vim.cmd.colorscheme("kanagawa-wave")
