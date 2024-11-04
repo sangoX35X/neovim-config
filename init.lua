@@ -26,7 +26,6 @@
 	-- language
 
 local vim = vim
-local api = vim.api
 local opt = vim.opt
 local key = vim.keymap
 
@@ -86,10 +85,10 @@ opt.virtualedit = "block"
 
 --#functions
 local function char_at_cursor(horizontal_relative_position, vertical_relative_position)
-	local row, col = unpack(api.nvim_win_get_cursor(0))
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 	row = row + (vertical_relative_position or 0)
 	col = col + (horizontal_relative_position or 0) + 1 -- 1-indexed
-	local line = api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+	local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
 	local result = string.sub(line, col, col)
 	if result == "" then
 		return nil
