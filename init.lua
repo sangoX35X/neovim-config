@@ -774,11 +774,10 @@ local plugins = {
 						winWidth = 50,
 						winRow = "&lines / 12",
 						winCol = "&columns / 12",
-						-- NOTE: Umm...
-						previewHeight = "&lines * 5 / 6",
-						previewWidth = "&columns * 5 / 6 - 50 - 1",
-						previewRow = "&lines / 12",
-						previewCol = "&columns / 12 + 50 + 1",
+						previewHeight = "&lines * 5 / 6 - 2",
+						previewWidth = "&columns * 5 / 6 - 50",
+						previewRow = "&lines * 11 / 12",
+						previewCol = "&columns / 12 + 53",
 					}
 				},
 				sourceOptions = {
