@@ -679,6 +679,16 @@ local plugins = {
 	{
 		"Shougo/ddu.vim",
 		cmd = "Ddu",
+		keys = {
+			{
+				"<Leader>dn",
+				":Ddu -name="
+			},
+			{
+				"<Leader>d<Space>",
+				":Ddu "
+			}
+		},
 		dependencies = {
 			"vim-denops/denops.vim",
 			--ui
@@ -692,6 +702,8 @@ local plugins = {
 			"shun/ddu-source-rg",
 			"shun/ddu-source-buffer",
 			"uga-rosa/ddu-source-lsp",
+			"matsui54/ddu-source-help",
+			"kuuote/ddu-source-git_diff",
 			--filters
 			"yuki-yano/ddu-filter-fzf",
 			--kinds
@@ -709,6 +721,7 @@ local plugins = {
 				vim.keymap.set("n", "c", function() vim.fn["ddu#ui#do_action"]("toggleSelectItem") end, { buffer = args.buf })
 				vim.keymap.set("n", "C", function() vim.fn["ddu#ui#do_action"]("toggleAllItems") end, { buffer = args.buf })
 				vim.keymap.set("n", "a", function() vim.fn["ddu#ui#do_action"]("toggleAutoAction") end, { buffer = args.buf })
+				vim.fn["ddu#ui#do_action"]("toggleAutoAction")
 				vim.keymap.set("n", "i", function() vim.fn["ddu#ui#do_action"]("openFilterWindow") end, { buffer = args.buf })
 			end
 			vim.api.nvim_create_autocmd(
@@ -756,14 +769,22 @@ local plugins = {
 							name = "preview",
 							delay = 0
 						},
-						displaySourceName = "full",
+						displaySourceName = "long",
 						displayTree = true,
 						floatingBorder = "single",
 						previewFloating = true,
 						previewFloatingBorder = "double",
-						prompt = " >",
+						prompt = " ",
 						split = "floating",
 						statusline = false,
+						winHeight = "&lines / 6 * 5",
+						winWidth = "&columns / 6 * 5",
+						winRow = "&lines / 12",
+						winCol = "&columns / 12",
+						previewHeight = "&lines / 6 * 5",
+						previewWidth = "&columns / 12 * 5",
+						previewRow = "&lines - &lines / 12",
+						previewCol = "&columns / 2 + 1",
 					},
 					filer = {
 						sort = "extension",
@@ -805,6 +826,9 @@ local plugins = {
 					rg = {
 						matchers = {},
 						volatile = true,
+					},
+					git_diff = {
+						path = vim.fn.expand("%:p")
 					}
 				},
 				sourceParams = {
@@ -842,7 +866,7 @@ local plugins = {
 			}
 			vim.fn["ddu#custom#patch_local"]("filer", {
 				ui = "filer",
-				sources = { "file" }
+				sources = { "fi" }
 			})
 			vim.fn["ddu#custom#patch_local"]("f", {
 				ui = "ff",
@@ -852,7 +876,7 @@ local plugins = {
 				ui = "ff",
 				sources = { "file" }
 			})
-			vim.fn["ddu#custom#patch_local"]("ffr", {
+			vim.fn["ddu#custom#patch_local"]("fr", {
 				ui = "ff",
 				sources = { "file_rec" }
 			})
@@ -1076,6 +1100,13 @@ local plugins = {
 			"hxml",
 			"haxe"
 		}
+	},
+	{
+		"kaarmu/typst.vim",
+		lazy = false,
+		ft = {
+			"typst"
+		},
 	}
 }
 require("lazy").setup(plugins, {
