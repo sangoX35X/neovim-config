@@ -177,6 +177,8 @@ local plugins = {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "neovim/nvim-lspconfig", lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
+	{ "rcarriga/nvim-notify", lazy = true },
 --##plugins-ai
 	{
 		"github/copilot.vim",
@@ -1004,6 +1006,25 @@ local plugins = {
 				}
 			},
 			top = { }
+		}
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			lsp = {
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true
+				}
+			},
+			presets = {
+				bottom_search = false,
+				command_palette = true,
+				long_message_to_split = true,
+				inc_rename = false,
+				lsp_doc_border = false
+			}
 		}
 	},
 	{
