@@ -1010,6 +1010,7 @@ local plugins = {
 	},
 	{
 		"folke/noice.nvim",
+		cond = false,
 		event = "VeryLazy",
 		opts = {
 			lsp = {
@@ -1026,6 +1027,10 @@ local plugins = {
 				lsp_doc_border = false
 			}
 		}
+	},
+	{
+		"folke/drop.nvim",
+		config = true
 	},
 	{
 		"rebelot/kanagawa.nvim",
