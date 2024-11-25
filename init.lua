@@ -237,9 +237,13 @@ local plugins = {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		opts = { },
 		config = function ()
-			require("mason-lspconfig").setup_handlers {
+			local this = require"mason-lspconfig"
+			this.setup {
+				ensure_installed = {
+				}
+			}
+			this.setup_handlers {
 				function (server_name)
 					require("lspconfig")[ server_name ].setup { }
 				end
