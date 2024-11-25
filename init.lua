@@ -377,11 +377,6 @@ local plugins = {
 			}
 			require("mini.bracketed").setup()
 			require("mini.colors").setup()
-			require("mini.comment").setup {
-				options = {
-					ignore_blank_line = true
-				}
-			}
 			require("mini.cursorword").setup()
 			require("mini.files").setup()
 			vim.keymap.set(
@@ -941,6 +936,11 @@ local plugins = {
 			{"<Leader>tj", "<Cmd>Translate ja<CR>", mode = "v"},
 			{"<Leader>te", "<Cmd>Translate en<CR>", mode = "v"}
 		}
+	},
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = true
 	},
 	{
 		"guns/xterm-color-table.vim",
