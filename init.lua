@@ -1132,7 +1132,13 @@ local plugins = {
 		lazy = false,
 		ft = {
 			"typst"
-		},
+		}
+	},
+	{
+		"chomosuke/typst-preview.nvim",
+		ft = "typst",
+		version = "1.*",
+		build = function() require"typst-preview".update() end
 	}
 }
 require("lazy").setup(plugins, {
