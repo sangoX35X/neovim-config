@@ -872,7 +872,7 @@ local plugins = {
 			}
 			vim.fn["ddu#custom#patch_local"]("filer", {
 				ui = "filer",
-				sources = { "fi" }
+				sources = { "file" }
 			})
 			vim.fn["ddu#custom#patch_local"]("f", {
 				ui = "ff",
