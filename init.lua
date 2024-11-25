@@ -53,10 +53,11 @@ opt.cursorcolumn = true
 opt.termguicolors = true
 opt.pumblend = 20
 opt.listchars = {
---	eol = "↵",
-	tab = "│  ",
+	--	eol = "↵",
+	-- tab = "│  ", -- NOTE: This setted by `hlchunk.nvim`
+	tab = "  ",
 	space = "･",
-	multispace = "│ ",
+	-- multispace = "│ ", -- NOTE: This setted by `hlchunk.nvim`
 	trail = "␣",
 	extends = "➙"
 }
@@ -1000,6 +1001,37 @@ local plugins = {
 	},
 	{
 		"rebelot/kanagawa.nvim",
+		config = true
+	},
+	{
+		"shellRaining/hlchunk.nvim",
+		event = "VeryLazy",
+		opts = {
+			chunk = {
+				enable = true,
+				style = {
+					vim.api.nvim_get_hl(0, { name = "Special" }),
+					vim.api.nvim_get_hl(0, { name = "ErrorMsg" })
+				},
+				chars = {
+					horizontal_line = "━",
+					vertical_line = "┃",
+					left_top = "┏",
+					left_bottom = "┗",
+					right_arrow = "▶"
+				},
+				delay = 0
+			},
+			indent = {
+				enable = true
+			},
+			line_num = {
+				enable = false
+			},
+			blank = {
+				enable = false
+			}
+		},
 		config = true
 	},
 --##plugins-nvimTree
