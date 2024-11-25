@@ -31,20 +31,8 @@ local key = vim.keymap
 
 --#options
 --##options-auto
---opt.autoread = true
 opt.autochdir = true
---opt.autowrite = false
---opt.autowriteall = false
 --##backup
---opt.backup = false
---opt.backupcopy = "auto"
---opt.backupdir = ""
---[[ autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function()
-		opt.backupext = os.date(".backup-%Y%m%d%H%M%S")
-	end
-}) --]]
 --##options-encoding
 opt.encoding = "UTF-8"
 opt.fileencodings = "UTF-8,UTF-16,UTF-32,SHIFT-JIS"
@@ -84,6 +72,7 @@ opt.clipboard = "unnamedplus"
 opt.virtualedit = "block"
 
 --#functions
+-- FIXME: throw error when this is called in line 1.
 local function char_at_cursor(horizontal_relative_position, vertical_relative_position)
 	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 	row = row + (vertical_relative_position or 0)
@@ -118,45 +107,17 @@ key.set('n', "cH", "c0")
 -- key.set('n', "<C-l>", "<C-w>l")
 key.set('n', "<C-S-k>", "<Cmd>tabNext<CR>")
 key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
---#autocmds
+--NOTE: following is replaced by `mini.basics`
 -- local function toggle_hlsearch ()
--- 	if opt.hlsearch:get() then
--- 		opt.hlsearch = false
--- 	else
--- 		opt.hlsearch = true
--- 	end
--- 	cmd.redraw()
--- end
--- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
-local changeMultispace = function ()
-	if vim.opt_local.expandtab:get() then
-		local tabsize = vim.optvim.opt_local.tabstop:get()
-		local softtabstop = vim.opt_local.softtabstop:get()
-		if softtabstop >= 2 and softtabstop < tabsize then
-			tabsize = softtabstop
-		end
-		local listchars = vim.opt.listchars:get()
-		listchars.multispace = "│" .. string.rep(" ", tabsize - 1)
-		vim.opt_local.listchars = listchars
-	end
-end
-vim.api.nvim_create_autocmd(
-	"OptionSet",
-	{
-		pattern = {"tabstop", "softtabstop"},
-		callback = changeMultispace
-	}
-)
-vim.api.nvim_create_autocmd(
-	{
-		"BufNewFile",
-		"BufRead"
-	},
-	{
-		pattern = "*",
-		callback = changeMultispace
-	}
-)
+	-- 	if opt.hlsearch:get() then
+	-- 		opt.hlsearch = false
+	-- 	else
+	-- 		opt.hlsearch = true
+	-- 	end
+	-- 	cmd.redraw()
+	-- end
+	-- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
+--#autocmds
 
 --#plugins
 --##plugins-lazy.nvim
