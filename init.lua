@@ -336,9 +336,6 @@ local plugins = {
 					hex_color = require("mini.hipatterns").gen_highlighter.hex_color()
 				}
 			}
-			require("mini.indentscope").setup {
-				symbol = "┃"
-			}
 			require("mini.jump").setup()
 			require("mini.jump2d").setup()
 			vim.keymap.set(
