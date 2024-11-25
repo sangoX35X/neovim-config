@@ -97,27 +97,6 @@ key.set('n', "dL", "d$")
 key.set('n', "dH", "d0")
 key.set('n', "cL", "c$")
 key.set('n', "cH", "c0")
--- NOTE: followings are setted by "mini.basics"
--- key.set({'i', 'c', 't'}, "<A-h>", "<Left>")
--- key.set({'i', 'c', 't'}, "<A-j>", "<Down>")
--- key.set({'i', 'c', 't'}, "<A-k>", "<Up>")
--- key.set({'i', 'c', 't'}, "<A-l>", "<Right>")
--- key.set('n', "<C-h>", "<C-w>h")
--- key.set('n', "<C-j>", "<C-w>j")
--- key.set('n', "<C-k>", "<C-w>k")
--- key.set('n', "<C-l>", "<C-w>l")
-key.set('n', "<C-S-k>", "<Cmd>tabNext<CR>")
-key.set('n', "<C-S-j>", "<Cmd>tabprevious<CR>")
---NOTE: following is replaced by `mini.basics`
--- local function toggle_hlsearch ()
-	-- 	if opt.hlsearch:get() then
-	-- 		opt.hlsearch = false
-	-- 	else
-	-- 		opt.hlsearch = true
-	-- 	end
-	-- 	cmd.redraw()
-	-- end
-	-- key.set({'n', 'v'}, "<Leader>s", toggle_hlsearch)
 --#autocmds
 
 --#plugins
