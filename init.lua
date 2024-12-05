@@ -389,7 +389,7 @@ local plugins = {
 				"Shougo/pum.vim",
 				config = function()
 					vim.fn["pum#set_option"] {
-						border = "rounded",
+						border = "none",
 						auto_select = true,
 						max_width = 50,
 						max_height = 15,
@@ -511,7 +511,7 @@ local plugins = {
 						mark = "󰬁 Tabnine"
 					},
 					lsp = {
-						mark = "󰒋 LSP",
+						mark = "󰒋 ",
 						forceCompletionPattern = {[['\.\w*|:\w*|->\w*']]}, -- {[["%.%w*|:%w*|->%w*"]]},
 						sorters = {
 							"sorter_lsp-detail-size",
@@ -519,29 +519,29 @@ local plugins = {
 						}
 					},
 					ale = {
-						mark = " ALE"
+						mark = " "
 					},
 					around = {
-						mark = "󰦨 Around"
+						mark = "󰦨 "
 					},
 					file = {
-						mark = " File",
+						mark = " ",
 					},
 					buffer = {
-						mark = "󰌨 Buffer",
+						mark = " ",
 						maxAutoCompleteLength = 32
 					},
 					copilot = {
-						mark = " Copilot"
+						mark = " "
 					},
 					["cmdline-history"] = {
-						mark = "󰋚 History"
+						mark = "󰋚 "
 					},
 					cmdline = {
-						mark = " Command"
+						mark = " "
 					},
 					necovim = {
-						mark = " neco"
+						mark = " "
 					}
 				},
 				sourceParams = {
