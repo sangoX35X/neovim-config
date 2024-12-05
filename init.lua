@@ -330,6 +330,10 @@ local plugins = {
 				silent = false
 			}
 			require("mini.bracketed").setup()
+			require"mini.bufremove".setup()
+			vim.keymap.set("n", "<Leader>mbd", MiniBufremove.delete)
+			vim.keymap.set("n", "<Leader>mbu", MiniBufremove.unshow)
+			vim.keymap.set("n", "<Leader>mbw", MiniBufremove.wipeout)
 			require("mini.colors").setup()
 			require("mini.cursorword").setup()
 			require("mini.files").setup()
