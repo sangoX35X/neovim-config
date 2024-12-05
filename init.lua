@@ -310,6 +310,7 @@ local plugins = {
 		"echasnovski/mini.nvim",
 		version = false,
 		config = function ()
+			require"mini.ai".setup()
 			require("mini.animate").setup()
 			require("mini.basics").setup {
 				options = {
