@@ -134,8 +134,7 @@ local plugins = {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		event = "VeryLazy",
-		branch = "canary",
-		build = "make tiktoken",
+		branch = "main",
 		opts = {
 			debug = true
 		}
