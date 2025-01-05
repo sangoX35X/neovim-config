@@ -153,7 +153,14 @@ local plugins = {
 --##plugins-lsp
 	{
 		"williamboman/mason.nvim",
-		cmd = "Mason",
+		cmd = {
+			"Mason",
+			"MasonInstall",
+			"MasonLog",
+			"MasonUninstall",
+			"MasonUninstallAll",
+			"MasonUpdate",
+		},
 		dependencies = {
 			"mfussenegger/nvim-dap",
 			{
