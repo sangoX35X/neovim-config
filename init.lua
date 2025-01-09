@@ -873,7 +873,7 @@ local plugins = {
 		config = function ()
 			vim.keymap.set(
 				{'c', 'i', "t"},
-				"<C-s>",
+				"<C-S-j>",
 				"<Plug>(skkeleton-toggle)"
 			)
 			vim.fn["skkeleton#config"] {
