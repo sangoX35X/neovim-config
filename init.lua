@@ -399,7 +399,9 @@ local plugins = {
 						auto_select = true,
 						max_width = 50,
 						max_height = 15,
-						blend = 20
+						blend = 20,
+						highlight_normal_menu = "NormalFloat",
+						highlight_selected = "CursorLine"
 					}
 					vim.keymap.set(
 						{ "i", "c" },
