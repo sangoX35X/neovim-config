@@ -119,6 +119,7 @@ local plugins = {
 	{ "neovim/nvim-lspconfig", lazy = true },
 	{ "MunifTanjim/nui.nvim", lazy = true },
 	{ "rcarriga/nvim-notify", lazy = true },
+	{ "vim-denops/denops.vim", event = "VeryLazy" },
 --##plugins-ai
 	{
 		"github/copilot.vim",
@@ -641,6 +642,7 @@ local plugins = {
 --##plugins-ddu
 	{
 		"Shougo/ddu.vim",
+		event = "VeryLazy",
 		cmd = "Ddu",
 		keys = {
 			{
@@ -852,6 +854,7 @@ local plugins = {
 --##plugins-skkeleton
 	{
 		"vim-skk/skkeleton",
+		event = "VeryLazy",
 		dependencies = {
 			"vim-denops/denops.vim",
 			{
