@@ -1012,6 +1012,13 @@ local plugins = {
 		config = true
 	},
 	{
+		"scottmckendry/cyberdream.nvim",
+		config = true
+	},
+	{
+		"rakr/vim-one"
+	},
+	{
 		"shellRaining/hlchunk.nvim",
 		event = "VeryLazy",
 		opts = {
