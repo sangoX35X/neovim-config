@@ -908,6 +908,15 @@ local plugins = {
 		"guns/xterm-color-table.vim",
 		cmd = "XtermColorTable"
 	},
+	{
+		"mikavilpas/yazi.nvim",
+		keys = {
+			{"<Leader>yz", "<Cmd>Yazi<CR>"},
+			{"<Leader>yw", "<Cmd>Yazi cwd<CR>"},
+			{"<Leader>yt", "<Cmd>Yazi toggle<CR>"}
+		},
+		cmd = "Yazi"
+	},
 --##plugins-looks
 	{
 		"rebelot/heirline.nvim",
