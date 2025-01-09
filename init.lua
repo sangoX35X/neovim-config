@@ -119,6 +119,7 @@ local plugins = {
 	{ "neovim/nvim-lspconfig", lazy = true },
 	{ "MunifTanjim/nui.nvim", lazy = true },
 	{ "rcarriga/nvim-notify", lazy = true },
+	{ "nvim-neotest/nvim-nio", lazy = true },
 	{ "vim-denops/denops.vim", event = "VeryLazy" },
 --##plugins-ai
 	{
@@ -167,7 +168,6 @@ local plugins = {
 				"rcarriga/nvim-dap-ui",
 				dependencies = {
 					"mfussenegger/nvim-dap",
-					"nvim-neotest/nvim-nio"
 				},
 				config = true
 			}
